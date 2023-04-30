@@ -1,13 +1,13 @@
 const mongoose =require("mongoose")
 const postSchema=new mongoose.Schema({
-    _id: ObjectId,
-    user: { type: ObjectId, ref: 'User' },
+    // _id: ObjectId,
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     text: String,
     image: String,
     createdAt: Date,
-    likes: [{ type: ObjectId, ref: 'User' }],
+    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     comments: [{
-      user: { type: ObjectId, ref: 'User' },
+      user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
       text: String,
       createdAt: Date
     }]

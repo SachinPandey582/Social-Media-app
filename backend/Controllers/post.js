@@ -1,6 +1,6 @@
 
 const Post =require('../models/posts')
-
+const User =require("../models/users")
 exports.CreatePost=async(req,res)=>{
 try{
 const newPostData={
@@ -10,6 +10,9 @@ const newPostData={
     
 }
 const newPost=await Post.create(newPostData)
+const user =await User.findById(req.user._id)
+user.posts.push(newPost._id);
+await user.save()
 
 res.status(201).json({
     success:true,
