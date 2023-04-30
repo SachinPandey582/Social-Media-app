@@ -32,5 +32,8 @@ http://localhost:8080/api/v1/register this is the post request
     password:"Sachin@582"
  }
 
+<!-- this is how you send the fiend request to the friend  passing the id of user 644e24665f26b3650f7f5e3c -->
+http://localhost:8080/api/v1/SendRequest/644e24665f26b3650f7f5e3c
+
 
 

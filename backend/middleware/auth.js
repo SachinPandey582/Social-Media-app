@@ -1,19 +1,21 @@
-const User = require("../models/users")
-const jwt=require("jsonwebtoken")
+const User = require("../models/users");
+const jwt = require("jsonwebtoken");
 
+exports.isAuthenticated = async (req, res, next) => {
+    console.log(req.user)
+  try {
+    const { token } = req.cookies;
+    console.log(token)
+    if (!token) {
+      return res.status(401).json({
+        message: "please Login First",
+      });
+    }
+    const decoded = await jwt.verify(token, process.env.JWT_Secret);
 
-exports.isAuthenticated=async(req,res,next)=>{
-   try{ const {token}=req.cookies;
-   if(!token){
-       return res.status(401).json({
-           message:"please Login First",
-       })
-   }
-   const decoded=await jwt.verify(token,process.env.SECRET);
-
-   req.user=await User.findById(decoded._id)
-   next()
-}catch(err){
-res.send(err.message)
-   }
-}
+    req.user = await User.findById(decoded._id);
+    next();
+  } catch (err) {
+    res.send(err.message);
+  }
+};
